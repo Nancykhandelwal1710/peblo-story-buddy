@@ -158,6 +158,17 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
               ),
             ),
           ),
+          const Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: MountainBackground(),
+          ),
+          MovingCloud(top: 60, size: 140, duration: 40, startOffset: -200),
+          MovingCloud(top: 120, size: 100, duration: 50, startOffset: 300),
+          MovingCloud(top: 190, size: 120, duration: 60, startOffset: 800),
+          MovingCloud(top: 90, size: 90, duration: 70, startOffset: 1300),
+          
           SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(22),
@@ -173,7 +184,7 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
                           vertical: 12,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.75),
+                          color: Colors.white.withOpacity(0.55),
                           borderRadius: BorderRadius.circular(28),
                         ),
                         child: const Text(
@@ -238,24 +249,38 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
                     child: ElevatedButton(
                       onPressed: isBusy ? null : readStory,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFFF7A3D),
+                        backgroundColor: const Color(0xFF5B3DFF),
                         foregroundColor: Colors.white,
                         disabledBackgroundColor: const Color(0xFFFFC49B),
                         elevation: 8,
-                        shadowColor: Colors.orangeAccent,
+                        shadowColor: const Color(0xFF5B3DFF),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
                       ),
-                      child: Text(
-                        buttonText,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900,
-                        ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.menu_book_rounded,
+                            size: 28,
+                            color: Colors.white,
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            buttonText,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              
+                            ),
+                          ),
+                        ],
                       ),
+
                     ),
                   ),
+                  
                   const SizedBox(height: 16),
                 ],
               ),
@@ -586,4 +611,150 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
       ),
     );
   }
+}
+class MovingCloud extends StatefulWidget {
+  final double top;
+  final double size;
+  final int duration;
+  final double startOffset;
+
+  const MovingCloud({
+    super.key,
+    required this.top,
+    required this.size,
+    required this.duration,
+    required this.startOffset,
+  });
+
+  @override
+  State<MovingCloud> createState() => _MovingCloudState();
+}
+
+class _MovingCloudState extends State<MovingCloud>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: widget.duration),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final totalWidth = screenWidth + 1800;
+
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, child) {
+        
+        final x =
+            (controller.value * totalWidth + widget.startOffset) %
+              totalWidth -
+            widget.size;
+
+        return Positioned(
+          top: widget.top,
+          left: x,
+          child: child!,
+        );
+      },
+      
+      child: Icon(
+        Icons.cloud,
+        size: widget.size,
+        color: Colors.white.withOpacity(0.85),
+        shadows: [
+          Shadow(
+            color: Colors.black.withOpacity(0.18),
+            blurRadius: 18,
+            offset: const Offset(3, 5),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MountainBackground extends StatelessWidget {
+  const MountainBackground({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      size: Size(MediaQuery.of(context).size.width, 260),
+      painter: MountainPainter(),
+    );
+  }
+}
+
+class MountainPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final backMountain = Paint()
+      ..color = const Color(0xFF466A9F).withOpacity(0.75);
+
+    final frontMountain = Paint()
+      ..color = const Color(0xFF274F7A).withOpacity(0.82);
+
+    final hill = Paint()
+      ..color = const Color(0xFF3F9B61).withOpacity(0.78);
+
+    final backPath = Path()
+      ..moveTo(0, size.height)
+      ..lineTo(size.width * 0.18, size.height * 0.18)
+      ..lineTo(size.width * 0.34, size.height)
+      ..lineTo(size.width * 0.55, size.height * 0.26)
+      ..lineTo(size.width * 0.75, size.height)
+      ..lineTo(size.width * 0.92, size.height * 0.20)
+      ..lineTo(size.width, size.height)
+      ..close();
+
+    canvas.drawPath(backPath, backMountain);
+
+    final frontPath = Path()
+      ..moveTo(0, size.height)
+      ..lineTo(size.width * 0.12, size.height * 0.45)
+      ..lineTo(size.width * 0.27, size.height)
+      ..lineTo(size.width * 0.48, size.height * 0.48)
+      ..lineTo(size.width * 0.66, size.height)
+      ..lineTo(size.width * 0.84, size.height * 0.42)
+      ..lineTo(size.width, size.height)
+      ..close();
+
+    canvas.drawPath(frontPath, frontMountain);
+
+    final hillPath = Path()
+      ..moveTo(0, size.height)
+      ..quadraticBezierTo(
+        size.width * 0.25,
+        size.height * 0.65,
+        size.width * 0.5,
+        size.height * 0.82,
+      )
+      ..quadraticBezierTo(
+        size.width * 0.75,
+        size.height,
+        size.width,
+        size.height * 0.70,
+      )
+      ..lineTo(size.width, size.height)
+      ..close();
+
+    canvas.drawPath(hillPath, hill);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
