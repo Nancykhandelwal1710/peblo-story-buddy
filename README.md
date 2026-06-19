@@ -35,9 +35,10 @@ The application focuses on engagement, accessibility, smooth animations, and lig
 ### Quiz Screen
 ![Quiz](assets/screenshots/quiz.png)
 
-### Success State
+### Success State - Confetti
 ![Success](assets/screenshots/success(1).png)
 
+### Success State - XP Reward
 ![Success](assets/screenshots/success(2).png)
 
 ---
