@@ -4,64 +4,54 @@ A Flutter-based interactive storytelling experience built for the Peblo Mobile A
 
 ## Overview
 
-Peblo Story Buddy is a child-friendly storytelling application that combines text-to-speech narration with an interactive quiz experience. The app narrates a short story about Pip the Robot and then presents a quiz generated from structured JSON data.
+Peblo Story Buddy is a child-friendly storytelling application where children can listen to a narrated story and participate in an interactive quiz after narration.
 
-The experience is designed to be lightweight, responsive, and suitable for children using mid-range Android devices.
+The application focuses on engagement, accessibility, smooth animations, and lightweight performance suitable for mid-range Android devices.
 
-## Framework Choice
-
-I chose Flutter because it provides a single codebase, fast development workflow, smooth animations, and excellent support for Android devices, which aligns with Peblo's target audience.
+---
 
 ## Features
 
-* Interactive AI Buddy character
-* Story narration using Flutter TTS
-* Loading and speaking states
-* Error handling with retry support
-* Data-driven quiz rendering
-* Dynamic option generation
-* Wrong-answer feedback
-* Success state with confetti celebration
-* Responsive single-screen experience
+- Text-to-Speech narration using flutter_tts
+- Interactive quiz revealed after narration completes
+- Data-driven quiz rendering from JSON
+- Animated Story Buddy character
+- Wrong-answer feedback
+- Confetti celebration on success
+- XP reward system
+- Moving clouds and scenic background
+- Child-friendly typography and UI
 
-## Story Flow
+---
 
-Idle State
+## Tech Stack
 
-↓
+- Flutter
+- flutter_tts
+- confetti
+- flutter_animate
+- google_fonts
 
-Preparing Audio
+---
 
-↓
+## State Management
 
-Story Narration
+The application manages:
 
-↓
+- Story narration state
+- Quiz visibility state
+- Success state
+- UI feedback state
 
-Quiz Reveal
+using lightweight local state management to keep the application responsive and simple.
 
-↓
-
-Wrong Answer Feedback or Success Celebration
-
-## Audio Handling
-
-The application uses Flutter TTS for narration.
-
-Implemented states:
-
-* Preparing
-* Speaking
-* Finished
-* Error
-
-If narration fails, the user receives a friendly retry option instead of the application becoming unresponsive.
+---
 
 ## Data-Driven Quiz
 
-The quiz is generated from JSON data instead of hardcoded UI elements.
+The quiz is generated from a JSON structure.
 
-Example structure:
+Example:
 
 ```json
 {
@@ -71,74 +61,47 @@ Example structure:
 }
 ```
 
-The renderer supports different question text and varying numbers of options without requiring UI changes.
+The UI automatically renders any number of options without requiring code changes.
 
-## State Management
+---
 
-The project uses Provider-based state management to separate story state and quiz state from the UI layer.
+## Audio Flow
+
+1. User taps Read Me a Story.
+2. TTS narration begins.
+3. Narration completion is detected.
+4. Quiz appears automatically.
+5. User answers the question.
+6. Success feedback is displayed.
+
+---
+
+## Loading & Failure Handling
+
+- Button disabled during narration.
+- Reading state displayed.
+- Retry mechanism supported.
+- Graceful state transitions.
+
+---
 
 ## Performance Considerations
 
-Optimizations performed:
+- Lightweight asset usage.
+- Minimal package footprint.
+- Limited rebuilds.
+- Smooth animations suitable for mid-range Android devices.
 
-* Lightweight widget tree
-* Minimal rebuilds
-* Efficient animation usage
-* Native device TTS
-* Small asset footprint
-* Responsive layout for mid-range Android devices
+---
 
-## Caching Approach
+## AI Usage
 
-Current implementation uses device-native TTS.
+AI tools were used for guidance, debugging, and exploring implementation approaches.
 
-If remote audio generation is introduced in the future, generated audio files can be cached locally using Flutter cache management packages to reduce network calls and improve performance.
+Final UI decisions, visual design choices, interaction flow, animations, and application integration were customized and implemented during development.
 
-## Error Handling
-
-Handled scenarios:
-
-* TTS initialization failure
-* Narration interruption
-* Retry support
-* Safe state transitions
-
-## AI Usage & Judgment
-
-AI tools were used for research, implementation guidance, debugging assistance, and evaluating alternative approaches.
-
-One suggestion that was not adopted was introducing multiple nested animation controllers for several UI elements. A simpler animation structure was selected to keep the application lightweight and maintain smooth performance on modest Android devices.
-
-## Project Structure
-
-```text
-lib/
-├── models/
-├── providers/
-├── services/
-├── screens/
-├── widgets/
-└── main.dart
-```
-
-## Screenshots
-
-Add screenshots here:
-
-* Home Screen
-* Story Narration
-* Quiz Display
-* Wrong Answer Feedback
-* Success State
-
-## Run Instructions
-
-```bash
-flutter pub get
-flutter run
-```
+---
 
 ## Author
 
 Nancy Khandelwal
-
