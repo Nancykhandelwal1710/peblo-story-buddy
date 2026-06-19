@@ -1,5 +1,13 @@
 # Peblo Story Buddy
 
+<p align="center">
+  <img src="assets/images/pip_robot.png" width="220">
+</p>
+
+<p align="center">
+  <b>An Interactive AI Storytelling Experience for Children</b>
+</p>
+
 A Flutter-based interactive storytelling experience built for the Peblo Mobile App Developer Challenge.
 
 ## Overview
@@ -23,6 +31,7 @@ The application focuses on engagement, accessibility, smooth animations, and lig
 - Child-friendly typography and UI
 
 ---
+##
 
 ## Screenshots
 
