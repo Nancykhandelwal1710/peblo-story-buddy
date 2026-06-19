@@ -24,6 +24,24 @@ The application focuses on engagement, accessibility, smooth animations, and lig
 
 ---
 
+## Screenshots
+
+### Home Screen
+![Home](assets/screenshots/home.png)
+
+### Story Narration
+![Reading](assets/screenshots/reading.png)
+
+### Quiz Screen
+![Quiz](assets/screenshots/quiz.png)
+
+### Success State
+![Success](assets/screenshots/success(1).png)
+
+![Success](assets/screenshots/success(2).png)
+
+---
+
 ## Tech Stack
 
 - Flutter
