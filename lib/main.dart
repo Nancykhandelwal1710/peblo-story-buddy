@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +7,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'models/quiz_data.dart';
 import 'services/story_service.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const PebloStoryBuddyApp());
@@ -20,7 +21,10 @@ class PebloStoryBuddyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Peblo Story Buddy',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(
+        useMaterial3: true,
+        textTheme: GoogleFonts.baloo2TextTheme(), 
+      ),
       home: const StoryBuddyScreen(),
     );
   }
@@ -187,12 +191,19 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
                           color: Colors.white.withOpacity(0.55),
                           borderRadius: BorderRadius.circular(28),
                         ),
-                        child: const Text(
+                        child: Text(
                           "Pip's Story Corner",
-                          style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.w900,
-                            color: Color(0xFF3D2B7A),
+                          style: GoogleFonts.schoolbell(
+                            fontSize: 36,
+                            fontWeight: FontWeight.bold,
+                            color:const Color(0xFF3D2B7A),
+                            shadows: const [
+                              Shadow(
+                                color: Colors.black12,
+                                blurRadius: 4,
+                                offset: Offset(2, 2),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -219,9 +230,9 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
                   Text(
                     helperText,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
+                    style: GoogleFonts.baloo2(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
                       color: Color(0xFF5D4D91),
                     ),
                   ),
@@ -251,9 +262,11 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF5B3DFF),
                         foregroundColor: Colors.white,
-                        disabledBackgroundColor: const Color(0xFFFFC49B),
-                        elevation: 8,
-                        shadowColor: const Color(0xFF5B3DFF),
+                        disabledBackgroundColor: const Color(0xFFFFA65C),
+                        elevation: storyState == StoryState.speaking ? 12 : 8,
+                        shadowColor: storyState == StoryState.speaking
+                            ? const Color(0xFFFFA65C)
+                            : const Color(0xFF5B3DFF),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
@@ -261,17 +274,22 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.menu_book_rounded,
                             size: 28,
-                            color: Colors.white,
+                            color: storyState == StoryState.speaking
+                                ? Color(0xFF5B3DFF)
+                                : const Color(0xFFFFA65C),
                           ),
                           const SizedBox(width: 12),
                           Text(
                             buttonText,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900,
+                            style: GoogleFonts.fredoka(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600,
+                              color: storyState == StoryState.speaking
+                                  ? Color(0xFF5B3DFF)
+                                  : const Color(0xFFFFA65C),
                               
                             ),
                           ),
@@ -413,12 +431,12 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
               color: const Color(0xFFFFE9A8),
               borderRadius: BorderRadius.circular(18),
             ),
-            child: const Text(
+            child: Text(
               "Today's Story",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w900,
-                color: Color(0xFF7A4A00),
+              style: GoogleFonts.fredoka(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: const Color(0xFF7A4A00),
               ),
             ),
           ),
@@ -427,9 +445,9 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
           Text(
             storyText,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 19,
-              height: 1.45,
+            style: GoogleFonts.baloo2(
+              fontSize: 20,
+              height: 1.5,
               fontWeight: FontWeight.w600,
               color: Color(0xFF333333),
             ),
@@ -469,12 +487,12 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
                 color: const Color(0xFFD9FFE5),
                 borderRadius: BorderRadius.circular(18),
               ),
-              child: const Text(
+              child: Text(
                 "Pip's Mission",
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w900,
-                  color: Color(0xFF1F7A3D),
+                style: GoogleFonts.fredoka(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  color:Color(0xFF1F7A3D),
                 ),
               ),
             ),
@@ -493,10 +511,10 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
             Text(
               quiz.question,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 20,
-                height: 1.25,
-                fontWeight: FontWeight.w900,
+              style: GoogleFonts.fredoka(
+                fontSize: 22,
+                height: 1.3,
+                fontWeight: FontWeight.w700,
                 color: Color(0xFF2F337A),
               ),
             ),
@@ -523,7 +541,7 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
                   child: const Column(
                     children: [
                       Text(
-                        "Mission Complete!",
+                        "🎉 Mission Complete!",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFF7A4A00),
@@ -533,7 +551,7 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
                       ),
                       SizedBox(height: 4),
                       Text(
-                        "You helped Pip find his shiny blue gear.\n+10 XP earned",
+                        "⭐ You helped Pip find his shiny blue gear.\n+10 XP earned",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFF7A4A00),
@@ -602,10 +620,10 @@ class _StoryBuddyScreenState extends State<StoryBuddyScreen>
         ),
         child: Text(
           option,
-          style: TextStyle(
+          style: GoogleFonts.fredoka(
             color: textColor,
-            fontSize: 16,
-            fontWeight: FontWeight.w900,
+            fontSize: 17,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
